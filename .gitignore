@@ -1,0 +1,29 @@
+# Dependencias de Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Archivos de compilación y caché
+dist/
+build/
+.cache/
+
+# Archivos de editor y sistema
+.DS_Store
+*.log
+*.log.*
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+.firebase-adminsdk.jsonsrc/config/firebase-adminsdk.json
