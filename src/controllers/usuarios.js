@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 export const getUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuario.findAll({
-      attributes: ['id', 'nombre', 'email', 'rol'],
+      attributes: ['id', 'nombre', 'email', 'rol', 'direccion', 'telefono'],
     });
     res.json(usuarios);
   } catch (err) {
@@ -16,7 +16,7 @@ export const getUsuario = async (req, res) => {
   const { id } = req.params;
   try {
     const usuario = await Usuario.findByPk(id, {
-      attributes: ['id', 'nombre', 'email', 'rol'],
+      attributes: ['id', 'nombre', 'email', 'rol', 'direccion', 'telefono'],
     });
     if (!usuario) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -36,12 +36,16 @@ export const createUsuario = async (req, res) => {
       email,
       contraseña: hashedPassword,
       rol,
+      direccion,
+      telefono,
     });
     res.status(201).json({
       id: usuario.id,
       nombre: usuario.nombre,
       email: usuario.email,
       rol: usuario.rol,
+      direccion: usuario.direccion,
+      telefono: usuario.telefono,
     });
   } catch (err) {
     res.status(500).json({ message: 'Error al crear usuario', error: err.message });
