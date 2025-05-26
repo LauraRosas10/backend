@@ -1,103 +1,93 @@
+-- Plantas de Interior
+INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
+('Monstera Deliciosa', 'Planta de interior popular por sus hojas grandes y fenestradas. Fácil cuidado, luz indirecta.', 25.99, 15, 'interior', 'https://picsum.photos/seed/monstera1/400/300'),
+('Pothos Dorado', 'Resistente planta colgante con hojas variegadas en tonos verdes y amarillos. Ideal para principiantes.', 12.50, 30, 'interior', 'https://picsum.photos/seed/pothos1/400/300'),
+('Sansevieria Zeylanica', 'Conocida como Lengua de Suegra. Muy resistente, purifica el aire. Requiere poca agua.', 18.00, 22, 'interior', 'https://picsum.photos/seed/sansevieria1/400/300'),
+('Ficus Lyrata Bambino', 'Versión compacta del popular Ficus Pandurata, con hojas grandes en forma de lira. Luz brillante indirecta.', 35.75, 10, 'interior', 'https://picsum.photos/seed/ficuslyrata1/400/300');
+
+-- Plantas de Exterior
+INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
+('Lavanda Angustifolia', 'Planta aromática con flores moradas. Atrae polinizadores. Pleno sol y buen drenaje.', 9.99, 40, 'exterior', 'https://picsum.photos/seed/lavanda1/400/300'),
+('Rosal Miniatura Rojo', 'Rosal compacto ideal para macetas o borduras. Flores rojas vibrantes. Requiere sol directo.', 15.20, 18, 'exterior', 'https://picsum.photos/seed/rosalrojo1/400/300'),
+('Helecho Espada', 'Helecho robusto y elegante, ideal para zonas sombreadas y húmedas del jardín.', 22.00, 12, 'exterior', 'https://picsum.photos/seed/helecho1/400/300'),
+('Geranio Zonal Rosa', 'Clásico geranio con flores en tonos rosados. Resistente y florífero. Pleno sol.', 7.50, 50, 'exterior', 'https://picsum.photos/seed/geranio1/400/300');
+
+-- Accesorios
+INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
+('Regadera Metálica Vintage', 'Regadera de zinc con capacidad de 5 litros, diseño clásico y funcional.', 29.95, 25, 'accesorio', 'https://picsum.photos/seed/regadera1/400/300'),
+('Tijeras de Podar Bypass', 'Tijeras de mano para poda precisa de ramas pequeñas y flores. Acero inoxidable.', 16.80, 35, 'accesorio', 'https://picsum.photos/seed/tijeraspodar1/400/300'),
+('Pulverizador de Agua 500ml', 'Botella pulverizadora para aumentar la humedad ambiental de las plantas o aplicar tratamientos.', 6.25, 60, 'accesorio', 'https://picsum.photos/seed/pulverizador1/400/300'),
+('Guantes de Jardinería Reforzados', 'Guantes de cuero sintético con refuerzo en palma y dedos para protección.', 12.00, 45, 'accesorio', 'https://picsum.photos/seed/guantesjardin1/400/300');
+
+-- Macetas
+INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
+('Maceta de Terracota Clásica 20cm', 'Maceta de barro cocido tradicional, porosa, ideal para buen drenaje. Diámetro 20cm.', 8.50, 70, 'maceta', 'https://picsum.photos/seed/macetaterracota1/400/300'),
+('Maceta Colgante de Cerámica Blanca', 'Elegante maceta colgante de cerámica esmaltada en blanco, con cuerdas de yute.', 22.90, 28, 'maceta', 'https://picsum.photos/seed/macetacolgante1/400/300'),
+('Maceta Autorriego Pequeña', 'Maceta de plástico con sistema de autorriego, ideal para plantas que requieren humedad constante. 15cm.', 14.75, 33, 'maceta', 'https://picsum.photos/seed/macetaautorriego1/400/300'),
+('Jardinera de Madera Tratada 60cm', 'Jardinera rectangular de madera de pino tratada para exterior. 60x20x20cm.', 38.00, 15, 'maceta', 'https://picsum.photos/seed/jardineramadera1/400/300');
+
+-- Fertilizantes
+INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
+('Fertilizante Orgánico Universal 1Kg', 'Abono orgánico completo para todo tipo de plantas, en formato granulado.', 10.99, 55, 'fertilizante', 'https://picsum.photos/seed/fertilizanteorganico1/400/300'),
+('Humus de Lombriz Líquido 500ml', 'Fertilizante líquido concentrado a base de humus de lombriz, rico en nutrientes.', 13.50, 40, 'fertilizante', 'https://picsum.photos/seed/humuslombriz1/400/300'),
+('Fertilizante para Floración NPK Alto en PK', 'Fertilizante específico para potenciar la floración en plantas ornamentales. 750gr.', 17.25, 30, 'fertilizante', 'https://picsum.photos/seed/fertilizantefloracion1/400/300'),
+('Sustrato para Suculentas y Cactus 5L', 'Mezcla especial de sustrato con excelente drenaje para suculentas y cactus.', 9.00, 65, 'fertilizante', 'https://picsum.photos/seed/sustratosuculentas1/400/300');
 
 
-  INSERT INTO plantas (nombre, descripcion, precio, stock, categoria, imagen) VALUES
-  ('Monstera Deliciosa (Grande)', 
-  'Planta de interior popular por sus hojas grandes y fenestradas. Fácil cuidado.', 
-  75000, 15,
-  'Interior',
-  'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Ficus Lyrata (Pequeño)',
-  '\"Fiddle Leaf Fig\", elegante planta de interior con hojas en forma de violín.',
-  55000, 20, 
-  'Interior',
-  'https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Sansevieria Zeylanica', 
-  '\"Lengua de Suegra\", muy resistente, ideal para principiantes. Purifica el aire.', 
-  35000, 30, 
-  'Interior', 
-  'https://images.unsplash.com/photo-1593482892903-345e7e165856?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Helecho Nido de Ave', 
-  'Follaje verde brillante y ondulado, prefiere ambientes húmedos y luz indirecta.',
-  42000, 12,
-  'Interior',
-    'https://images.unsplash.com/photo-1601964275994-07d8bt0fd2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Lavanda Angustifolia',
-  'Aromática planta de exterior, atrae polinizadores. Floración púrpura intensa.',
-    28000, 25,
-    'Exterior', 
-    'https://images.unsplash.com/photo-1597911035108-73c66a9711f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Romero Officinalis',
-  'Hierba aromática perenne, ideal para cocinar y jardines de bajo riego.', 
-  22000, 40,
-    'Exterior', 
-    'https://images.unsplash.com/photo-1608039319457-918451e9d1c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Rosal Miniatura (Rojo)', 
-  'Pequeño rosal compacto perfecto para macetas en balcones o patios. Flores rojas.', 
-  38000, 18,
-  'Exterior',
-    'https://images.unsplash.com/photo-1559563362-c19c236c2495?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Suculenta Echeveria "Lola"', 
-  'Roseta de hojas carnosas color grisáceo-lavanda. Necesita sol directo.',
-  18000, 50,
-    'Exterior', 
-    'https://images.unsplash.com/photo-1520472134195-1e5a24108020?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Maceta de Terracota (Mediana)',
-  'Maceta clásica de barro cocido, porosa, ideal para drenaje. Diámetro 20cm.',
-  15000, 60,
-    'Maceta', 
-    'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Maceta Cerámica Esmaltada (Azul)',
-  'Maceta decorativa de cerámica con esmalte brillante azul. Diámetro 15cm.',
-    25000, 35, 
-    'Maceta',
-    'https://images.unsplash.com/photo-1585399000684-d0f1ab57a8ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Maceta Colgante de Macramé',
-  'Soporte tejido a mano en macramé para colgar plantas, estilo bohemio.', 
-  32000, 22, 
-  'Accesorio',
-    'https://images.unsplash.com/photo-1509423350716-97f9360b9e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Plato para Maceta (Plástico Transparente)',
-  'Plato base transparente para recoger el exceso de agua. Diámetro 18cm.', 
-  5000, 100,
-  'Accesorio',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Saucer_for_plant_pot.jpg/640px-Saucer_for_plant_pot.jpg'),
-  ('Tijeras de Podar Pequeñas (Acero)',
-  'Herramienta esencial de acero inoxidable para el mantenimiento de plantas.',
-    22000, 45,
-    'Accesorio',
-      'https://images.unsplash.com/photo-1622400360309-c21c5773ed20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Regadera Metálica Vintage (1 Litro)', 
-  'Regadera de diseño vintage en metal, funcional y decorativa. Color verde.',
-  40000, 15,
-    'Accesorio',
-    'https://images.unsplash.com/photo-1584588435298-c45786200527?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Fertilizante Universal Líquido (250ml)',
-  'Nutrientes balanceados para todo tipo de plantas. Concentrado.',
-    18000, 70,
-    'Fertilizante',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Liquid_synthetic_fertilizer.jpg/600px-Liquid_synthetic_fertilizer.jpg'),
-  ('Humus de Lombriz Orgánico (1kg)', 
-  'Abono orgánico de alta calidad, mejora la estructura del suelo y aporta nutrientes.', 
-  12000, 80,
-  'Fertilizante',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vermicompost.jpg/640px-Vermicompost.jpg'),
-  ('Sustrato para Suculentas y Cactus (2L)', 
-  'Mezcla especial con excelente drenaje para cactus y suculentas.',
-  16000, 55, 
-  'Fertilizante',
-    'https://images.unsplash.com/photo-1600260403802-5c6f81fa84a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Palmera Areca (Mediana)', 
-  'Elegante palmera de interior que da un toque tropical. Múltiples tallos. Purificadora.',
-  95000, 10,
-    'Interior', 
-    'https://images.unsplash.com/photo-1632203319947-36a04a3d2c68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Kit de Herramientas de Jardinería (3 piezas)', 
-  'Incluye pala pequeña, rastrillo y transplantador. Mango ergonómico.',
-  35000, 30, 
-  'Accesorio', 
-  'https://images.unsplash.com/photo-1559213040-f0eacedd7e0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'),
-  ('Maceta Autorriego (Blanca Pequeña)',
-  'Maceta moderna con sistema de autorriego para mantener la humedad ideal. 12cm.', 
-  28000, 25,
-    'Maceta', 
-    'https://images.unsplash.com/photo-1604279000294-0e3c2a8419a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');
+-- Usuario Admin Específico
+INSERT INTO usuarios (nombre, email, contraseña, rol, direccion, telefono, firebaseuid) VALUES
+('Admin Botanic Panic', 'botanicpanic@gmail.com', 'botanic123', 'admin', 'Calle Principal 123, Ciudad Admin', '5551112222', 'firebaseUIDAdmin001');
+
+-- Usuario Cliente 
+INSERT INTO usuarios (nombre, email, contraseña, rol, direccion, telefono, firebaseuid) VALUES
+('Lala Vanesa Rosas', 'lalavanesarosas@gmail.com', 'laurarosas', 'cliente', 'Avenida Las Flores 45, Colonia Jardín', '5553334444', 'firebaseUIDCliente001');
+
+-- Usuario Admin 
+INSERT INTO usuarios (nombre, email, contraseña, rol, direccion, telefono, firebaseuid) VALUES
+('Alejandro', 'alejandro@gmail.com', 'superAdminPass789', 'admin', 'Boulevard Central 789, Capital', '5555556666', 'firebaseUIDAdmin002');
+
+-- Usuario Admin 
+INSERT INTO usuarios (nombre, email, contraseña, rol, direccion, telefono, firebaseuid) VALUES
+('Gabriel Vera', 'gabriel@gmail.com', 'Segura2024', 'admin', 'Plaza de la Tecnología 10, Distrito Tech', '5557778888', 'firebaseUIDAdmin003');
+
+-- Usuario Cliente 
+INSERT INTO usuarios (nombre, email, contraseña, rol, direccion, telefono, firebaseuid) VALUES
+('Pedro Cliente Fiel', 'pedro@gmail.com', 'comprasOnline123', 'cliente', 'Calle Secundaria 67, Barrio Residencial', '5559990000', 'firebaseUIDCliente002');
+
+
+
+
+-- Pedido 1 para Lala Vanesa Rosas
+INSERT INTO pedidos (id_usuario, fecha, estado, total) VALUES
+(2, '2024-05-10 10:30:00', 'Procesando', 55.94);
+
+-- Pedido 2 para Pedro Cliente Fiel
+INSERT INTO pedidos (id_usuario, fecha, estado, total) VALUES
+(5, '2024-05-11 14:15:00', 'Enviado', 28.48);
+
+-- Pedido 3 para Lala Vanesa Rosas
+INSERT INTO pedidos (id_usuario, fecha, estado, total) VALUES
+(2, '2024-05-12 09:00:00', 'Entregado', 48.49);
+
+
+
+-- Detalles para Pedido 1 (id_pedido = 1)
+-- 1 x Monstera Deliciosa (id_planta=1, precio=25.99)
+-- 1 x Regadera Metálica Vintage (id_planta=9, precio=29.95)
+INSERT INTO detalles_pedido (id_pedido, id_planta, cantidad, precio_unitario) VALUES
+(1, 1, 1, 25.99),
+(1, 9, 1, 29.95);
+
+-- Detalles para Pedido 2 (id_pedido = 2)
+-- 2 x Lavanda Angustifolia (id_planta=5, precio=9.99)
+-- 1 x Maceta de Terracota Clásica 20cm (id_planta=13, precio=8.50)
+INSERT INTO detalles_pedido (id_pedido, id_planta, cantidad, precio_unitario) VALUES
+(2, 5, 2, 9.99),
+(2, 13, 1, 8.50);
+
+-- Detalles para Pedido 3 (id_pedido = 3)
+-- 3 x Pothos Dorado (id_planta=2, precio=12.50)
+-- 1 x Fertilizante Orgánico Universal 1Kg (id_planta=17, precio=10.99)
+INSERT INTO detalles_pedido (id_pedido, id_planta, cantidad, precio_unitario) VALUES
+(3, 2, 3, 12.50),
+(3, 17, 1, 10.99);
