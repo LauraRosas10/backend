@@ -197,11 +197,6 @@ async function startApp() {
         // 1. Inicializar la base de datos (crear BD, sincronizar tablas, sembrar datos)
         await initializeDatabase(); // Aquí se maneja toda la lógica de BD
 
-        // 2. Inicializar Firebase Admin SDK (si no se ha hecho ya)
-        // (Tu lógica de inicialización de Firebase ya está en src/config/firebase.js y se ejecuta al importar)
-        // Solo asegúrate de que se importe antes de necesitar `admin.auth()`
-        // import './config/firebase.js'; // Si no se importa en otro lado
-        // O si exportas 'auth' desde firebase.js y lo usas, ya se habrá ejecutado.
 
         app.listen(PORT, () => {
             console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
