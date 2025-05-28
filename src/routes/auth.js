@@ -5,12 +5,14 @@ import jwt from 'jsonwebtoken';
 import db from '../config/db.js'; // tu conexión MySQL
 import dotenv from 'dotenv';
 
+
 dotenv.config();
 const router = express.Router();
 
 router.post('/login-google', loginGoogle);
 router.post('/login-db', loginDB);
 router.post('/register', registerDB);
+
 
 
 
@@ -38,5 +40,10 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Error en el servidor', error });
   }
 });
+
+
+
+
+
 
 export default router;

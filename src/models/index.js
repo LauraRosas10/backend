@@ -5,6 +5,7 @@ import Pedido from './pedido.js';
 import DetallePedido from './detalle_pedido.js';
 
 // Relaciones
+
 Usuario.hasMany(Pedido, { foreignKey: 'id_usuario' });
 Pedido.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 

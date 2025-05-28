@@ -1,91 +1,70 @@
+
 // --- Importaciones de Módulos ---
 import express from 'express';
 import cors from 'cors';
-import morgan from 'morgan'; // Para logging HTTP
+import morgan from 'morgan';
 import dotenv from 'dotenv';
-import multer from 'multer';     // Para manejar la subida de archivos.
-import path from 'path';       // Módulo de Node.js para trabajar con rutas de archivos y directorios.
-import fs from 'fs';           // Módulo de Node.js para interactuar con el sistema de archivos (file system).
-import { fileURLToPath } from 'url'; // Para obtener __dirname en módulos ES
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+// --- Importar tus routers ---
+import authRoutes from './routes/auth.js';
+import pedidosRoutes from './routes/pedidos.js';
+import plantasRoutes from './routes/plantas.js';
+import usuariosRoutes from './routes/usuarios.js';
 
-// Cargar variables de entorno
-// En src/index.js
-// ... (tus importaciones, incluyendo path y fileURLToPath) ...
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename); // Si index.js está en src/
+// --- Importar lógica de inicialización de la BD ---
+import { initializeDatabase } from './base_datos/init.js'; // NUEVA IMPORTACIÓN
+// sequelize ya no se importa directamente aquí, vendrá de initializeDatabase o config/db.js si lo necesitas en otro lado
+// import { sequelize } from './models/index.js'; // Ya no es necesario importar sequelize directamente aquí para iniciar.
+
+
+// --- Configuración de __dirname y carga de .env ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// Cargar variables de entorno especificando la ruta
-// Asumimos que .env está en la raíz del proyecto (un nivel arriba de src/)
-// y que este archivo (index.js) está en src/
-// Si index.js está en la raíz, la ruta sería solo '.env'
-const envPath = path.resolve(__dirname, '../.env'); // Si index.js está en src/
-// const envPath = path.resolve(__dirname, '.env'); // Si index.js está en la raíz del proyecto
 
-console.log(`DEBUG: Intentando cargar .env desde: ${envPath}`); // Para verificar la ruta
+// Cargar .env desde la raíz del proyecto (un nivel arriba de src/)
+const envPath = path.resolve(__dirname, '../.env');
+console.log(`DEBUG: Intentando cargar .env desde: ${envPath}`);
 const dotenvResult = dotenv.config({ path: envPath });
 
 if (dotenvResult.error) {
-  console.error('DEBUG: Error al cargar .env:', dotenvResult.error);
-} else if (Object.keys(dotenvResult.parsed).length === 0) {
-  console.warn('DEBUG: .env cargado pero está vacío o no contiene variables parseables.');
+    console.error('DEBUG: Error al cargar .env:', dotenvResult.error);
 } else {
-  console.log('DEBUG: .env cargado exitosamente. Variables:', Object.keys(dotenvResult.parsed));
+    console.log('DEBUG: .env cargado exitosamente.');
 }
-// Verifica si JWT_SECRET está ahora en process.env
-console.log('DEBUG: JWT_SECRET después de dotenv.config explícito:', process.env.JWT_SECRET);
-// ... resto de tu archivo src/index.js
+console.log('DEBUG: JWT_SECRET después de dotenv.config:', process.env.JWT_SECRET); // Verifica tus variables
+
+
 
 
 
 // --- Configuración Inicial Express ---
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// --- Middlewares Globales ---
 app.use(cors());
-app.use(express.json()); // Para parsear application/json
-
-// --- Importar la instancia de sequelize Y la función de sincronización ---
-// Asumiendo que este archivo (app.js) está en la RAÍZ del proyecto
-import { sequelize, syncDatabase } from './models/index.js';
-
-// --- Importar tus routers de API existentes ---
-import authRoutes from './routes/auth.js';
-import pedidosRoutes from './routes/pedidos.js';
-import plantasRoutes from './routes/plantas.js';
-import usuariosRoutes from './routes/usuarios.js';
-
-
-
-app.use('/api/auth', authRoutes);
-app.use('/api/pedidos', pedidosRoutes);
-app.use('/api/plantas', plantasRoutes);
-app.use('/api/usuarios', usuariosRoutes);
-
-
-// --- Configuración de Directorio de Subidas (UPLOADS) ---
-const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
-
-// --- Lógica de Creación de Directorio UPLOADS (si no existe) ---
-if (!fs.existsSync(UPLOADS_DIR)) {
-    try {
-        fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-        console.log(`Directorio de subidas creado exitosamente en: ${UPLOADS_DIR}`);
-    } catch (err) {
-        console.error(`Error al crear el directorio de subidas: ${err.message}`);
-    }
-} else {
-    console.log(`Directorio de subidas ya existe en: ${UPLOADS_DIR}`);
-}
-
-// --- Middlewares Globales de Express ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// Servir archivos estáticos desde la carpeta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+// --- Configuración de Directorio de Subidas (UPLOADS) ---
+const UPLOADS_DIR = path.join(__dirname, '..', 'public', 'uploads'); // Ajustado para estar en la raíz/public/uploads
+if (!fs.existsSync(UPLOADS_DIR)) {
+    try {
+        fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+        console.log(`Directorio de subidas creado: ${UPLOADS_DIR}`);
+    } catch (err) {
+        console.error(`Error al crear directorio de subidas: ${err.message}`);
+    }
+} else {
+    console.log(`Directorio de subidas ya existe: ${UPLOADS_DIR}`);
+}
+// Servir archivos estáticos desde la carpeta 'public' (que contendrá 'uploads')
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 
 // --- Configuración de Multer ---
 const storage = multer.diskStorage({
@@ -98,15 +77,13 @@ const storage = multer.diskStorage({
         cb(null, uniquePrefix + '-' + originalNameCleaned);
     }
 });
-
 const fileFilter = (req, file, cb) => {
+    // ... (tu fileFilter) ...
     const allowedTypes = [
-        'image/jpeg', 'image/png', 'image/gif', 'image/webp', // Tipos de imagen comunes
-        'video/mp4', 'video/mpeg', // Tipos de video comunes
-        'application/pdf',
-        'text/plain',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+        'video/mp4', 'video/mpeg',
+        'application/pdf', 'text/plain',
+        'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ];
     if (allowedTypes.includes(file.mimetype) || file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
         cb(null, true);
@@ -114,18 +91,19 @@ const fileFilter = (req, file, cb) => {
         cb(new Error('Tipo de archivo no permitido: ' + file.mimetype), false);
     }
 };
-
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 50 * 1024 * 1024 },
-    fileFilter: fileFilter
-}).array('files', 10);
+const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 }, fileFilter }).array('files', 10);
 
 
+// --- Rutas ---
+// Rutas de tu API
+app.use('/api/auth', authRoutes);
+app.use('/api/pedidos', pedidosRoutes);
+app.use('/api/plantas', plantasRoutes);
+app.use('/api/usuarios', usuariosRoutes);
 
-// rutas para gestor de  archivos
 
-app.post('/upload', (req, res) => {
+// Rutas de Multer para gestión de archivos
+app.post('/upload', (req, res) => { /* ... tu lógica de upload ... */ 
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(400).json({ message: `Error de Multer: ${err.message}` });
@@ -140,13 +118,12 @@ app.post('/upload', (req, res) => {
             originalname: file.originalname,
             mimetype: file.mimetype,
             size: file.size,
-            url: `/uploads/${file.filename}` // URL relativa para acceder al archivo
+            url: `/uploads/${file.filename}`
         }));
         res.status(200).json({ message: 'Archivos subidos exitosamente!', files: uploadedFilesDetails });
     });
 });
-
-app.get('/files', (req, res) => {
+app.get('/files', (req, res) => { /* ... tu lógica de /files ... */ 
     fs.readdir(UPLOADS_DIR, (err, files) => {
         if (err) {
             console.error("Error al leer el directorio de subidas:", err);
@@ -156,16 +133,12 @@ app.get('/files', (req, res) => {
             .filter(file => !file.startsWith('.'))
             .map(file => ({
                 name: file,
-                url: `/uploads/${file}` // URL relativa
+                url: `/uploads/${file}`
             }));
         res.status(200).json(visibleFiles);
     });
 });
-
-
-app.get('/download/:filename', (req, res) => {
-
-
+app.get('/download/:filename', (req, res) => { /* ... tu lógica de /download ... */
     const filename = req.params.filename;
     const filePath = path.join(UPLOADS_DIR, filename);  
     if (filename.includes('..') || filename.includes('/')) {
@@ -178,67 +151,68 @@ app.get('/download/:filename', (req, res) => {
         res.download(filePath, filename, (downloadErr) => {
             if (downloadErr) {
                 console.error("Error al descargar el archivo:", downloadErr);
-                return res.status(500).json({ message: 'Error al descargar el archivo.' });
+                // Evita enviar otra respuesta si ya se envió una (aunque res.download maneja headers)
+                if (!res.headersSent) {
+                    return res.status(500).json({ message: 'Error al descargar el archivo.' });
+                }
             }
         });
     });
-});
-
-app.delete('/delete/:filename', (req, res) => {
+ });
+app.delete('/delete/:filename', (req, res) => { /* ... tu lógica de /delete ... */
     const filename = req.params.filename;
     const filePath = path.join(UPLOADS_DIR, filename);
-
     if (filename.includes('..') || filename.includes('/')) {
         return res.status(400).json({ message: 'Nombre de archivo inválido para eliminación.' });
     }
-
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
-            console.error(`Intento de eliminar archivo no encontrado: ${filePath}`, err);
-            return res.status(404).json({ message: 'Archivo no encontrado en el servidor, no se puede eliminar.' });
+            return res.status(404).json({ message: 'Archivo no encontrado.' });
         }
         fs.unlink(filePath, (unlinkErr) => {
             if (unlinkErr) {
-                console.error(`Error al eliminar el archivo ${filePath}:`, unlinkErr);
-                return res.status(500).json({ message: 'Error interno del servidor al intentar eliminar el archivo.' });
+                return res.status(500).json({ message: 'Error al eliminar el archivo.' });
             }
-            console.log(`Archivo eliminado exitosamente: ${filePath}`);
-            res.status(200).json({ message: `Archivo '${filename}' eliminado exitosamente.` });
+            res.status(200).json({ message: `Archivo '${filename}' eliminado.` });
         });
     });
+ });
+
+app.get('/api', (req, res) => {
+    res.send('¡API de Botanic Panic funcionando correctamente!');
 });
 
-
-    app.get('/api', (req, res) => {
-    res.send('¡API de Botanic Panic funcionando!');
-    });
-
-    // --- Manejador de Errores Global ---
-    app.use((err, req, res, next) => { // El 'next' es importante aquí aunque no se use explícitamente
+// --- Manejador de Errores Global ---
+app.use((err, req, res, next) => {
     console.error("Error no manejado:", err.stack || err.message || err);
     res.status(err.status || 500).json({
         message: err.message || '¡Algo salió mal en el servidor!',
-        // error: process.env.NODE_ENV === 'development' ? err : {} // Opcional: solo mostrar stack en desarrollo
+        // error: process.env.NODE_ENV === 'development' ? err : {} // Opcional
     });
-    });
+});
 
-    // --- Función para Iniciar el Servidor y Sincronizar la BD ---
-    async function startApp() {
+// --- Función para Iniciar el Servidor ---
+async function startApp() {
     try {
-        console.log('Intentando conectar y sincronizar la base de datos...');
-        await sequelize.authenticate();
-        console.log('Conexión a la base de datos MySQL establecida exitosamente.');
-        await syncDatabase(); // Llama a la función de src/models/index.js
+        // 1. Inicializar la base de datos (crear BD, sincronizar tablas, sembrar datos)
+        await initializeDatabase(); // Aquí se maneja toda la lógica de BD
+
+        // 2. Inicializar Firebase Admin SDK (si no se ha hecho ya)
+        // (Tu lógica de inicialización de Firebase ya está en src/config/firebase.js y se ejecuta al importar)
+        // Solo asegúrate de que se importe antes de necesitar `admin.auth()`
+        // import './config/firebase.js'; // Si no se importa en otro lado
+        // O si exportas 'auth' desde firebase.js y lo usas, ya se habrá ejecutado.
+
         app.listen(PORT, () => {
-        console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
-        console.log(`Los archivos subidos se guardarán en: ${UPLOADS_DIR}`);
-        console.log(`Y estarán disponibles en: http://localhost:${PORT}/uploads/`);
+            console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
+            console.log(`Los archivos subidos se guardarán en: ${UPLOADS_DIR}`);
+            console.log(`Y estarán disponibles en: http://localhost:${PORT}/uploads/`);
         });
     } catch (error) {
-        console.error('No se pudo iniciar el servidor o sincronizar la base de datos:', error);
+        console.error('No se pudo iniciar la aplicación:', error);
         process.exit(1);
     }
-    }
+}
 
 // Iniciar la aplicación
 startApp();
